@@ -39,7 +39,7 @@ dps_scale = {
 state_lock = threading.Lock()
 state = {
     "timestamp": int(time.time()),
-    "connected": False,
+    "connected": 0,
     "dps": {},
     "values": {}
 }
@@ -64,11 +64,11 @@ def merge_dps_and_map(incoming_dps: dict) -> None:
 def update_state(connected: bool=None, data: dict=None):
     with state_lock:
         if connected is not None:
-            state["connected"] = connected
+            state["connected"] = 1 if connected else 0
         if data is not None and "Err" in data:
-            state["connected"] = False
+            state["connected"] = 0
         if data is not None and "dps" in data:
-            state["connected"] = True
+            state["connected"] = 1
             merge_dps_and_map(data["dps"])
         state["timestamp"] = int(time.time())
 
