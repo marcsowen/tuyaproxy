@@ -120,7 +120,7 @@ def main():
 
             return JSONResponse(out)
 
-    uvicorn.run(app, host=["::1", "127.0.0.1"], port=8009)
+    uvicorn.run(app, host=["::", "0.0.0.0"], port=8009)
 
 if __name__ == "__main__":
     main()
